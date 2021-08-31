@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM arm64v8/nginx
 
 COPY ./public /usr/share/nginx/html
 
