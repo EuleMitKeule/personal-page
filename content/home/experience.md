@@ -30,7 +30,7 @@ experience:
     date_start: '2021-10-01'
     date_end: ''
     description: |2-
-      I am helping to shape a study module about game development with C# and the Unity Engine.<br>
+      I am supervising a study module about game development with C# and the Unity Engine.<br>
 
       My assignments include:
         * Helping students with the used technologies
