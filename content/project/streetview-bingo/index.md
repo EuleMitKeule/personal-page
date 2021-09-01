@@ -31,5 +31,6 @@ The streetview-bingo application's purpose is to assist with taking notes about 
 After a lobby is created and players are invited, the lobby owner can designate the next games moderator. When the game is initiated,
 the moderator can choose the game's terms and after starting the game can then check or uncheck each term for the individual players.
 
-The application is open-source and consists of a python flask REST-API backend and a frontend made with the Angular framework.<br>
-It can be self-hosted by deploying the shipped docker image or accessed via its [website](https://bingo.blobnet.de/).
+The application is open-source and consists of a python flask REST-API backend and a frontend made with Angular by my friend [Niklas Held](https://github.com/niklasheld).<br>
+It can be self-hosted by deploying the shipped docker image or accessed via its official [website](https://bingo.blobnet.de/).
+
