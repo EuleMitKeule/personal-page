@@ -44,6 +44,10 @@ feature:
   icon: java
   icon_pack: fab
   name: Java
+- description: Beginner
+  icon: code
+  icon_pack: fas
+  name: Web Development
 - description: and Editing
   icon: video
   icon_pack: fas

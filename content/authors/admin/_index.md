@@ -14,13 +14,14 @@ organizations:
   url: https://www.ruhr-uni-bochum.de
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include game development, software architecture and home automation.
+bio: My research interests include game development, object oriented software architecture and home automation.
 
 # Interests to show in About widget
 interests:
 - Game Development
 - Software Architecture
 - Home Automation
+- Artificial Intelligence
 
 # Education to show in About widget
 education:
@@ -64,8 +65,11 @@ email: "l.beers@outlook.de"
 # highlight_name: true
 ---
 
-<!-- Nelson Bighetti is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+# Welcome!
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
+My name is Lennard Beers, I am a student of Applied Computer Science at the Ruhr University of Bochum, Germany. My favorite research topics include game development, object oriented software architecture and home automation.
 
-{{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}. -->
+I grew up in a small town near the city of Hamburg in northern Germany where I graduated from high school in the physics profile. From early on
+I was very interested in computers and software development. After graduation I decided to move to the Ruhr Valley, where I currently reside, to study computer science.
+
+In my free time I like to play the guitar, direct and edit short films with my friends and work at and use my home media server. I also love to work on smart home automations and develop games with or without the Unity Engine.
