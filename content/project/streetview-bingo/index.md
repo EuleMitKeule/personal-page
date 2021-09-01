@@ -9,7 +9,7 @@ image:
   focal_point: Smart
 
 links:
-- icon: web
+- icon: gamepad
   icon_pack: fas
   name: Play
   url: https://bingo.blobnet.de
