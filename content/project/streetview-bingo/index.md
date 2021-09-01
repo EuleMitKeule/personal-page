@@ -23,8 +23,8 @@ Streetview Bingo is a web application that can assist with remotely playing the 
 
 Google Streetview bingo works by choosing a list of terms that might be found in Google's Streetview service.<br>
 The players then need to search for each term in Google Streetview without typing anything in the search bar.<br>
-When a player finds something, a designated game moderator will then take a look at the player's finding
-and decide whether the finding satisfies the term.
+When a player finds something, a designated game moderator will then take a look at the player's find
+and decide whether the find satisfies the term.
 This usually happens with sharing one's screen over something like Discord.
 
 The streetview-bingo application's purpose is to assist with taking notes about the chosen terms and the current state of the game.<br>
