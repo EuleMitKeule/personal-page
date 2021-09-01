@@ -28,13 +28,84 @@ links:
 #   Otherwise, set `slides = ""`.
 # slides: example
 ---
-<!-- 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.
+Mono-routine is an open-source wrapper class written in C# for use with the coroutine system provided by the Unity Engine's scripting framework.<br>
+Its main purpose is to extend the user's capabilities when working with coroutines.<br>
 
-Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.
+The MonoRoutine class can be instantiated by providing a reference to the coroutine defining IEnumerator. The routine can then easily be started, stopped and paused.<br>
 
-Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.
+Achieving the start and stop mechanic with builtin means requires a lot of boilerplate code:
 
-Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.
+```cs
+Coroutine Coroutine { get; set; }
 
-Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at. -->
+void StartSomeRoutine() => Coroutine ??= StartCoroutine(SomeCoroutine());
+
+void StopSomeRoutine()
+{
+    if (Coroutine == null) return;
+    StopCoroutine(Coroutine);
+    Coroutine = null;
+}
+
+IEnumerator SomeCoroutine() { }
+```
+
+Pausing a coroutine is not possible without some tricks which are implemented by the MonoRoutine class.<br>
+
+MonoRoutine works by manually iterating the coroutine defining IEnumerator and yielding any YieldInstructions encountered in the process.
+It also checks for requested pausing or stopping before each iteration:
+
+```cs
+IEnumerator Wrapper()
+{
+    var enumerator = Enumerator?.Invoke();
+
+    while (IsRunning)
+    {
+        if (IsPaused) yield return null;
+        else
+        {
+            if (enumerator != null && enumerator.MoveNext())
+            {
+                yield return enumerator.Current;
+            }
+            else
+            {
+                IsRunning = false;
+                Stopped?.Invoke(Behaviour, new MonoRoutineEventArgs(false));
+                yield break;
+            }
+        }
+    }
+}
+```
+
+This also allows the MonoRoutine class to notify listeners via an event when the routine is paused or stopped 
+and to provide information whether the stopping occured forcefully by user request or because the routine completed.<br>
+
+The newest addition to mono-routine's capabilities contains the option to specify a generic return type.<br>
+The wrapper enumerator used by the MonoRoutine class will then check in each iteration whether the enumerator's current value is of the specified return type
+and if so will assume the routine is completed. The return value will provided in the generic MonoRoutineEventArgs argument of the stopped event:
+
+```cs
+void Foo()
+{
+    var routine = new MonoRoutine<string>(SomeCoroutine);
+    routine.Stopped += OnRoutineStopped;
+}
+
+void OnRoutineStopped(object sender, MonoRoutineEventArgs<string> e)
+{
+    var returnValue = e.ReturnValue;
+}
+
+IEnumerator SomeCoroutine()
+{
+    //Will be executed
+
+    yield return "Finished";
+
+    //Won't be executed
+}
+
+```

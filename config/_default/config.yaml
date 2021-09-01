@@ -57,6 +57,18 @@ taxonomies:
   author: authors
 markup:
   _merge: deep
+  highlight:
+    anchorLineNos: false
+    codeFences: true
+    guessSyntax: false
+    hl_Lines: ""
+    lineAnchors: ""
+    lineNoStart: 1
+    lineNos: false
+    lineNumbersInTable: true
+    noClasses: true
+    style: github
+    tabWidth: 4
 related:
   threshold: 80
   includeNewer: true
