@@ -1,4 +1,4 @@
----
+<!-- ---
 
 title: die-gulde
 summary: A middle age economy simulation game made with Unity. Taking ideas from the original The Guild / Europa 1400 game. 
@@ -16,4 +16,4 @@ links:
   url: https://github.com/EuleMitKeule/die-gulde
 
 ---
-
+ -->
