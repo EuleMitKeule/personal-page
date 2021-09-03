@@ -54,7 +54,7 @@ The game is inspired by the amazing games [Hotline Miami](https://store.steampow
 We orientated the architecture along Unity's component system.<br>
 We started by implementing the basic components used by the player and all hostile entities that manage health and selected weapons.<br>
 
-The next step was to add behaviour to enemies. This was done by implementing the A* algorithm for pathfinding and building a finite state machine containing AI logic. To keep the code clean I developed an [encapsulated implementation of the state pattern](https://github.com/EuleMitKeule/better-fsm).
+The next step was to add behaviour to enemies. This was done by implementing the A* algorithm for pathfinding and building a finite state machine containing AI logic. To keep the code clean I developed an [encapsulated implementation of the state pattern](https://lennardbeers.de/post/better-fsm).
 
 After that the weapons and items system was implemented. The main goal hereby was to ensure that creating new weapons and items was as easy and generalized as possible. All items and weapons are defined and configured using Unity's scriptable object data containers which are then processed by a unified weapon and item component. Differences in attack delays for the different weapons are handled by adding animation events to the weapons generalized animation clips, for instance in order to define when exactly a projectile should be spawned.<br>
 

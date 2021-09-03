@@ -14,6 +14,12 @@ draft: false
 
 featured: false
 
+links:
+  - icon_pack: fab
+    icon: github
+    name: Github
+    url: https://github.com/EuleMitKeule/better-fsm
+
 image:
   caption:
   focal_point: ""
