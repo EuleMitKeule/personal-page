@@ -1,4 +1,4 @@
-FROM arm64v8/nginx
+FROM nginx
 
 COPY ./public /usr/share/nginx/html
 
